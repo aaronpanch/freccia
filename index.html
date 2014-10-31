@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>freccia</title>
+
+    <style>
+      .touch-demo {
+        background: rgba(0,0,0,0.3);
+        height: 500px;
+        width: 500px;
+        margin: 200px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="js-touch-demo touch-demo"></div>
+    <p class="js-touch-log"></p>
+
+    <script src="freccia.js"></script>
+    <script>
+      var f = Freccia('.js-touch-demo');
+      f.on('start', function(data) { console.log(data); });
+      f.trace();
+    </script>
+  </body>
+</html>
