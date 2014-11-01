@@ -25,6 +25,10 @@
 
       end: function() {
         return this.points[this.points.length - 1];
+      },
+
+      addPoint: function(touchPoint) {
+        return this.points.push(touchPoint);
       }
     };
 

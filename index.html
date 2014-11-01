@@ -57,10 +57,8 @@
         paper.clear();
       });
 
-      f.on('end', function(data) {
-        console.log(data);
-
-        var line = paper.line(data.startX - box.left, data.startY - box.top, data.endX - box.left, data.endY - box.top);
+      f.on('end', function(path, point) {
+        var line = paper.line(path.start().x - box.left, path.start().y - box.top, point.x - box.left, point.y - box.top);
         line.attr({
           stroke: "#fff",
           strokeWidth: 3,

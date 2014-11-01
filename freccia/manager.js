@@ -33,11 +33,10 @@
         var point = new TouchPoint(touches[i]),
             path = new TouchPath(touches[i].identifier, [point]);
 
-        //manager.activeTouchPaths.push(path);
-        var data = manager.logTouch(touches[i]);
+        manager.activeTouchPaths.push(path);
 
         manager.beginCallbacks.forEach(function(callback) {
-          callback.call(manager, data);
+          callback.call(manager, path, point);
         });
       }
     }
@@ -47,15 +46,14 @@
 
       var touches = event.changedTouches;
       for(var i=0; i < touches.length; i++) {
-        var touchData = manager.findActiveTouchPath(touches[i].identifier);
+        var point = new TouchPoint(touches[i]),
+            path = manager.findActiveTouchPath(touches[i].identifier);
 
-        if (touchData) {
-          touchData.endMoment = new Date();
-          touchData.endX = touches[i].pageX;
-          touchData.endY = touches[i].pageY;
-          manager.removeActiveTouchPath(touchData.identifier);
+        if (path) {
+          path.addPoint(point);
+          manager.removeActiveTouchPath(path.id);
           manager.endCallbacks.forEach(function(callback) {
-            callback.call(manager, touchData);
+            callback.call(manager, path, point);
           });
         }
       }
@@ -78,15 +76,9 @@
         }, false);
       },
 
-      logTouch: function(touch) {
-        var data = { identifier: touch.identifier, startX: touch.pageX, startY: touch.pageY, startMoment: new Date() };
-        this.activeTouchPaths.push(data);
-        return data;
-      },
-
       _findActiveTouchPathPos: function(id) {
         for (var i=0; i < this.activeTouchPaths.length; i++) {
-          if (this.activeTouchPaths[i].identifier === id) {
+          if (this.activeTouchPaths[i].id === id) {
             return i
           } 
         }
