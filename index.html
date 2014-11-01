@@ -36,17 +36,17 @@
       });
 
       f.on('end', function(path, point) {
+        paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff', opacity: '0.5' });
         if (path.netDistance() == 0) {
           return;
         }
         var vel = path.velocity();
-        var line = paper.line(path.start().x - box.left, path.start().y - box.top, vel.x + path.start().x - box.left, vel.y + path.start().y - box.top);
+        var line = paper.line(path.start().x - box.left, path.start().y - box.top, path.start().x - box.left, path.start().y - box.top);
         line.attr({
           stroke: "#fff",
           strokeWidth: 3,
           markerEnd: paper.polygon(0,0,3,1.5,0,3).attr({fill: '#fff'}).marker(0,0,3,3,0.1,1.5)
-        });
-      });
+        }).animate({x2: vel.x + path.start().x - box.left, y2: vel.y + path.start().y - box.top}, 100); });
       f.trace();
     </script>
   </body>

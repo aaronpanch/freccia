@@ -38,7 +38,7 @@
         var start = this.start(),
             end   = this.end();
 
-        return (end.moment - start.moment) / 1000;
+        return (end.moment - start.moment) / 100;
       },
 
       netDistance: function() {
