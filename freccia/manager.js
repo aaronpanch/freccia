@@ -1,11 +1,11 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['freccia/gesture'], factory);
+    define(['freccia/touch_path', 'freccia/touch_point'], factory);
   } else {
     root.Freccia = (root.Freccia || {});
-    root.Freccia.Manager = factory(Freccia.Gesture);
+    root.Freccia.Manager = factory(Freccia.TouchPath, Freccia.TouchPoint);
   }
-}(this, function(Gesture) {
+}(this, function(TouchPath, TouchPoint) {
     'use strict';
     
     function Manager(element) {
@@ -16,7 +16,7 @@
       }
 
       self.element = element;
-      self.activeGestures = [];
+      self.activeTouchPaths = [];
 
       self.beginCallbacks = [];
       self.endCallbacks = [];
@@ -30,6 +30,10 @@
 
       var touches = event.changedTouches;
       for(var i=0; i < touches.length; i++) {
+        var point = new TouchPoint(touches[i]),
+            path = new TouchPath(touches[i].identifier, [point]);
+
+        //manager.activeTouchPaths.push(path);
         var data = manager.logTouch(touches[i]);
 
         manager.beginCallbacks.forEach(function(callback) {
@@ -43,13 +47,13 @@
 
       var touches = event.changedTouches;
       for(var i=0; i < touches.length; i++) {
-        var touchData = manager.findActiveGesture(touches[i].identifier);
+        var touchData = manager.findActiveTouchPath(touches[i].identifier);
 
         if (touchData) {
           touchData.endMoment = new Date();
           touchData.endX = touches[i].pageX;
           touchData.endY = touches[i].pageY;
-          manager.removeActiveTouch(touchData.identifier);
+          manager.removeActiveTouchPath(touchData.identifier);
           manager.endCallbacks.forEach(function(callback) {
             callback.call(manager, touchData);
           });
@@ -76,24 +80,24 @@
 
       logTouch: function(touch) {
         var data = { identifier: touch.identifier, startX: touch.pageX, startY: touch.pageY, startMoment: new Date() };
-        this.activeGestures.push(data);
+        this.activeTouchPaths.push(data);
         return data;
       },
 
-      _findActiveGesturePos: function(id) {
-        for (var i=0; i < this.activeGestures.length; i++) {
-          if (this.activeGestures[i].identifier === id) {
+      _findActiveTouchPathPos: function(id) {
+        for (var i=0; i < this.activeTouchPaths.length; i++) {
+          if (this.activeTouchPaths[i].identifier === id) {
             return i
           } 
         }
       },
 
-      findActiveGesture: function(id) {
-        return this.activeGestures[this._findActiveGesturePos(id)];
+      findActiveTouchPath: function(id) {
+        return this.activeTouchPaths[this._findActiveTouchPathPos(id)];
       },
 
-      removeActiveTouch: function(id) {
-        return this.activeGestures.splice(this._findActiveGesturePos(id), 1);
+      removeActiveTouchPath: function(id) {
+        return this.activeTouchPaths.splice(this._findActiveTouchPathPos(id), 1);
       },
 
       on: function(event, callback) {
