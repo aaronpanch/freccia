@@ -1,10 +1,10 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define([], factory);
+    define(['gesture'], factory);
   } else {
-    root.Freccia = factory();
+    root.Freccia = factory(Gesture);
   }
-}(this, function() {
+}(this, function(Gesture) {
     'use strict';
     
     function Freccia(element) {
@@ -15,7 +15,7 @@
       }
 
       self.element = element;
-      self.activeTouches = [];
+      self.activeGestures = [];
 
       self.beginCallbacks = [];
       self.endCallbacks = [];
@@ -42,7 +42,7 @@
 
       var touches = event.changedTouches;
       for(var i=0; i < touches.length; i++) {
-        var touchData = manager.findActiveTouch(touches[i].identifier);
+        var touchData = manager.findActiveGesture(touches[i].identifier);
 
         if (touchData) {
           touchData.endMoment = new Date();
@@ -75,24 +75,24 @@
 
       logTouch: function(touch) {
         var data = { identifier: touch.identifier, startX: touch.pageX, startY: touch.pageY, startMoment: new Date() };
-        this.activeTouches.push(data);
+        this.activeGestures.push(data);
         return data;
       },
 
-      _findActiveTouchPos: function(id) {
-        for (var i=0; i < this.activeTouches.length; i++) {
-          if (this.activeTouches[i].identifier === id) {
+      _findActiveGesturePos: function(id) {
+        for (var i=0; i < this.activeGestures.length; i++) {
+          if (this.activeGestures[i].identifier === id) {
             return i
           } 
         }
       },
 
-      findActiveTouch: function(id) {
-        return this.activeTouches[this._findActiveTouchPos(id)];
+      findActiveGesture: function(id) {
+        return this.activeGestures[this._findActiveGesturePos(id)];
       },
 
       removeActiveTouch: function(id) {
-        return this.activeTouches.splice(this._findActiveTouchPos(id), 1);
+        return this.activeGestures.splice(this._findActiveGesturePos(id), 1);
       },
 
       on: function(event, callback) {
@@ -107,7 +107,7 @@
             this.moveCallbacks.push(callback);
         }
       }
-    }
+    };
 
     return Freccia;
   }

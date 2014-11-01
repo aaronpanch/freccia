@@ -2,24 +2,70 @@
 <html>
   <head>
     <title>freccia</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <style>
+      body {
+        font-family: Montserrat, Helvetica, sans-serif;
+        background: rgb(80,199,183);
+      }
+
+      h1 {
+        color: white;
+        font-weight: normal;
+        font-kerning: normal;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+      }
+
       .touch-demo {
         background: rgba(0,0,0,0.3);
-        height: 500px;
-        width: 500px;
-        margin: 200px auto;
+        height: 94vmin;
+        margin: 50px auto;
+        position: relative;
+        width: 94vmin;
+      }
+
+      .touch-demo__layer {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
       }
     </style>
   </head>
   <body>
-    <div class="js-touch-demo touch-demo"></div>
-    <p class="js-touch-log"></p>
+    <h1>freccia</h1>
 
+    <div class="touch-demo">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="touch-demo__layer" id="drawing-layer"></svg>
+      <div class="js-touch-demo touch-demo__layer"></div>
+    </div>
+
+    <script src="snap.svg.js"></script>
+    <script src="gesture.js"></script>
     <script src="freccia.js"></script>
     <script>
-      var f = Freccia('.js-touch-demo');
-      f.on('end', function(data) { console.log(data); });
+      var paper = Snap('#drawing-layer');
+      var element = document.querySelectorAll('.js-touch-demo')[0];
+      var box = element.getBoundingClientRect();
+
+      var f = Freccia(element);
+      f.on('start', function() {
+        paper.clear();
+      });
+
+      f.on('end', function(data) {
+        console.log(data);
+
+        var line = paper.line(data.startX - box.left, data.startY - box.top, data.endX - box.left, data.endY - box.top);
+        line.attr({
+          stroke: "#fff",
+          strokeWidth: 3,
+          markerEnd: paper.polygon(0,0,3,1.5,0,3).attr({fill: '#fff'}).marker(0,0,3,3,0.1,1.5)
+        });
+      });
       f.trace();
     </script>
   </body>
