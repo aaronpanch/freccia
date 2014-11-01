@@ -4,39 +4,12 @@
     <title>freccia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-    <style>
-      body {
-        font-family: Montserrat, Helvetica, sans-serif;
-        background: rgb(80,199,183);
-      }
-
-      h1 {
-        color: white;
-        font-weight: normal;
-        font-kerning: normal;
-        letter-spacing: 5px;
-        text-transform: uppercase;
-      }
-
-      .touch-demo {
-        background: rgba(0,0,0,0.3);
-        height: 94vmin;
-        margin: 50px auto;
-        position: relative;
-        width: 94vmin;
-      }
-
-      .touch-demo__layer {
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-    </style>
+    <link href="demo.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <h1>freccia</h1>
+    <section class="blurb">
+      <h1 class="blurb__title">freccia</h1>
+    </section>
 
     <div class="touch-demo">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="touch-demo__layer" id="drawing-layer"></svg>
@@ -62,7 +35,11 @@
       });
 
       f.on('end', function(path, point) {
-        var line = paper.line(path.start().x - box.left, path.start().y - box.top, point.x - box.left, point.y - box.top);
+        if (path.netDistance() == 0) {
+          return;
+        }
+        var vel = path.velocity();
+        var line = paper.line(path.start().x - box.left, path.start().y - box.top, vel.x + path.start().x - box.left, vel.y + path.start().y - box.top);
         line.attr({
           stroke: "#fff",
           strokeWidth: 3,

@@ -1,0 +1,35 @@
+body {
+  background: rgb(80,199,183);
+  color: #fff;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+}
+
+.blurb {
+  font-weight: 300;
+  padding: 0 1rem;
+}
+
+.blurb__title {
+  font-family: Montserrat, Helvetica, sans-serif;
+  font-weight: normal;
+  font-kerning: normal;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.touch-demo {
+  background: rgba(0,0,0,0.3);
+  height: 94vmin;
+  margin: 50px auto;
+  position: relative;
+  width: 94vmin;
+}
+
+.touch-demo__layer {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
