@@ -26,12 +26,13 @@
       var box = element.getBoundingClientRect();
 
       var f = Freccia.Manager(element);
-      f.on('start', function() {
+      f.on('start', function(path, point) {
         paper.clear();
+        paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff' });
       });
 
       f.on('move', function(path, point) {
-        paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff' });
+        paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff', opacity: '0.5' });
       });
 
       f.on('end', function(path, point) {
