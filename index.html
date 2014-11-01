@@ -57,6 +57,10 @@
         paper.clear();
       });
 
+      f.on('move', function(path, point) {
+        paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff' });
+      });
+
       f.on('end', function(path, point) {
         var line = paper.line(path.start().x - box.left, path.start().y - box.top, point.x - box.left, point.y - box.top);
         line.attr({

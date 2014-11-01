@@ -41,6 +41,23 @@
       }
     }
 
+    function traceMove(event, manager) {
+      event.preventDefault();
+
+      var touches = event.changedTouches;
+      for(var i=0; i < touches.length; i++) {
+        var point = new TouchPoint(touches[i]),
+            path = manager.findActiveTouchPath(touches[i].identifier);
+
+        if (path) {
+          path.addPoint(point);
+          manager.moveCallbacks.forEach(function(callback) {
+            callback.call(manager, path, point);
+          });
+        }
+      }
+    }
+
     function traceEnd(event, manager) {
       event.preventDefault();
 
@@ -73,6 +90,10 @@
 
         this.element.addEventListener('touchcancel', function(event) {
           traceEnd(event, self);
+        }, false);
+
+        this.element.addEventListener('touchmove', function(event) {
+          traceMove(event, self);
         }, false);
       },
 
