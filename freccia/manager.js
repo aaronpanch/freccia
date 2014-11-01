@@ -1,14 +1,15 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['gesture'], factory);
+    define(['freccia/gesture'], factory);
   } else {
-    root.Freccia = factory(Gesture);
+    root.Freccia = (root.Freccia || {});
+    root.Freccia.Manager = factory(Freccia.Gesture);
   }
 }(this, function(Gesture) {
     'use strict';
     
-    function Freccia(element) {
-      var self = Object.create(Freccia.prototype);
+    function Manager(element) {
+      var self = Object.create(Manager.prototype);
       
       if (typeof element === 'string') {
         element = document.querySelectorAll(element)[0];
@@ -56,7 +57,7 @@
       }
     }
 
-    Freccia.prototype = {
+    Manager.prototype = {
       trace: function() {
 	var self = this;
 				
@@ -109,6 +110,6 @@
       }
     };
 
-    return Freccia;
+    return Manager;
   }
 ));

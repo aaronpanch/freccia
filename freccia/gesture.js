@@ -2,7 +2,8 @@
   if (typeof define === 'function' && define.amd) {
     define([], factory);
   } else {
-    root.Gesture = factory();
+    root.Freccia = (root.Freccia || {});
+    root.Freccia.Gesture = factory();
   }
 }(this, function() {
     'use strict';

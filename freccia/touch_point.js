@@ -2,7 +2,8 @@
   if (typeof define === 'function' && define.amd) {
     define([], factory);
   } else {
-    root.TouchPoint = factory();
+    root.Freccia = (root.Freccia || {});
+    root.Freccia.TouchPoint = factory();
   }
 }(this, function() {
     'use strict';

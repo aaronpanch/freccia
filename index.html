@@ -44,14 +44,14 @@
     </div>
 
     <script src="snap.svg.js"></script>
-    <script src="gesture.js"></script>
-    <script src="freccia.js"></script>
+    <script src="freccia/gesture.js"></script>
+    <script src="freccia/manager.js"></script>
     <script>
       var paper = Snap('#drawing-layer');
       var element = document.querySelectorAll('.js-touch-demo')[0];
       var box = element.getBoundingClientRect();
 
-      var f = Freccia(element);
+      var f = Freccia.Manager(element);
       f.on('start', function() {
         paper.clear();
       });
