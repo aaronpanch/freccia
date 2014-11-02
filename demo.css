@@ -1,29 +1,38 @@
 body {
   background: rgb(80,199,183);
+  color: #333;
+  font-family: 'Droid Sans', Helvetica, sans-serif;
+  margin: 1rem;
+}
+
+h1, h2, h3 {
   color: #fff;
-  font-family: Helvetica, sans-serif;
-  margin: 0;
-}
-
-.blurb {
-  font-weight: 300;
-  padding: 0 1rem;
-}
-
-.blurb__title {
   font-family: Montserrat, Helvetica, sans-serif;
-  font-weight: normal;
+  font-weight: 700;
   font-kerning: normal;
-  letter-spacing: 6px;
+  letter-spacing: 2px;
   text-transform: uppercase;
+}
+
+h1 {
+  letter-spacing: 6px;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
 .touch-demo {
   background: rgba(0,0,0,0.3);
-  height: 94vmin;
-  margin: 50px auto;
+  height: calc(100vmin - 2rem);
+  margin: 20px auto;
   position: relative;
-  width: 94vmin;
+  width: calc(100vmin - 2rem);
 }
 
 .touch-demo__layer {
