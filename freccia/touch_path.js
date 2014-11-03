@@ -65,6 +65,7 @@
       },
 
       addPoint: function(touchPoint) {
+        touchPoint.setPrevPoint(this.end());
         return this.points.push(touchPoint);
       }
     };
