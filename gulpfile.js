@@ -11,7 +11,7 @@ gulp.task('serve', function() {
 });
 
 gulp.task('scripts', function() {
-  gulp.src(['./freccia/touch_point.js', './freccia/touch_path.js', './freccia/manager.js'])
+  gulp.src(['./freccia/vector.js', './freccia/touch_point.js', './freccia/touch_path.js', './freccia/manager.js'])
     .pipe(concat('freccia.js'))
     .pipe(gulp.dest('./dist/'));
 });
