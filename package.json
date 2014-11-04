@@ -1,0 +1,19 @@
+{
+  "name": "freccia",
+  "version": "0.0.1",
+  "description": "A library for tracking touch events 'n stuff",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronpanch/freccia.git"
+  },
+  "author": "Aaron Panchal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaronpanch/freccia/issues"
+  },
+  "homepage": "https://aaronpanch.github.io/freccia",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.1"
+  }
+}
