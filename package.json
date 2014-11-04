@@ -14,6 +14,7 @@
   "homepage": "https://aaronpanch.github.io/freccia",
   "devDependencies": {
     "gulp": "^3.8.10",
-    "gulp-concat": "^2.4.1"
+    "gulp-concat": "^2.4.1",
+    "browser-sync": "^1.6.3"
   }
 }
