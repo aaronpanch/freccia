@@ -8,12 +8,9 @@
 }(this, function() {
     'use strict';
 
-    function Vector(x, y) {
-      var self = Object.create(Vector.prototype);
-      self.x = x;
-      self.y = y;
-
-      return self;
+    function Vector(x,y) {
+      this.x = x;
+      this.y = y;
     }
 
     Vector.prototype = {
@@ -43,16 +40,12 @@
     'use strict';
 
     function TouchPoint(touch) {
-      var self = Object.create(TouchPoint.prototype);
-
-      self.moment = new Date();
-      self.x = touch.pageX;
-      self.y = touch.pageY;
-      self.dx = null;
-      self.dy = null;
-      self.dt = null;
-
-      return self;
+      this.moment = new Date();
+      this.x = touch.pageX;
+      this.y = touch.pageY;
+      this.dx = null;
+      this.dy = null;
+      this.dt = null;
     }
 
     TouchPoint.prototype = {
@@ -79,13 +72,9 @@
     'use strict';
 
     function TouchPath(id, touches) {
-      var self = Object.create(TouchPath.prototype);
-
-      self.id = id;
-      self.moment = new Date();
-      self.points = (touches || []);
-
-      return self;
+      this.id = id;
+      this.moment = new Date();
+      this.points = (touches || []);
     }
 
     TouchPath.prototype = {
@@ -155,20 +144,16 @@
     'use strict';
     
     function Manager(element) {
-      var self = Object.create(Manager.prototype);
-      
       if (typeof element === 'string') {
         element = document.querySelectorAll(element)[0];
       }
 
-      self.element = element;
-      self.activeTouchPaths = [];
+      this.element = element;
+      this.activeTouchPaths = [];
 
-      self.beginCallbacks = [];
-      self.endCallbacks = [];
-      self.moveCallbacks = [];
-
-      return self;
+      this.beginCallbacks = [];
+      this.endCallbacks = [];
+      this.moveCallbacks = [];
     }
 
     function traceStart(event, manager) {

@@ -9,13 +9,9 @@
     'use strict';
 
     function TouchPath(id, touches) {
-      var self = Object.create(TouchPath.prototype);
-
-      self.id = id;
-      self.moment = new Date();
-      self.points = (touches || []);
-
-      return self;
+      this.id = id;
+      this.moment = new Date();
+      this.points = (touches || []);
     }
 
     TouchPath.prototype = {

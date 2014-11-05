@@ -8,12 +8,9 @@
 }(this, function() {
     'use strict';
 
-    function Vector(x, y) {
-      var self = Object.create(Vector.prototype);
-      self.x = x;
-      self.y = y;
-
-      return self;
+    function Vector(x,y) {
+      this.x = x;
+      this.y = y;
     }
 
     Vector.prototype = {

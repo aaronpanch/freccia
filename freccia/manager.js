@@ -9,20 +9,16 @@
     'use strict';
     
     function Manager(element) {
-      var self = Object.create(Manager.prototype);
-      
       if (typeof element === 'string') {
         element = document.querySelectorAll(element)[0];
       }
 
-      self.element = element;
-      self.activeTouchPaths = [];
+      this.element = element;
+      this.activeTouchPaths = [];
 
-      self.beginCallbacks = [];
-      self.endCallbacks = [];
-      self.moveCallbacks = [];
-
-      return self;
+      this.beginCallbacks = [];
+      this.endCallbacks = [];
+      this.moveCallbacks = [];
     }
 
     function traceStart(event, manager) {

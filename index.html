@@ -28,7 +28,7 @@
       var element = document.querySelectorAll('.js-touch-demo')[0];
       var box = element.getBoundingClientRect();
 
-      var f = Freccia.Manager(element);
+      var f = new Freccia.Manager(element);
       f.on('start', function(path, point) {
         paper.clear();
         paper.circle(point.x - box.left, point.y - box.top, 1.5).attr({ fill: '#fff' });

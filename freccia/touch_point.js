@@ -9,16 +9,12 @@
     'use strict';
 
     function TouchPoint(touch) {
-      var self = Object.create(TouchPoint.prototype);
-
-      self.moment = new Date();
-      self.x = touch.pageX;
-      self.y = touch.pageY;
-      self.dx = null;
-      self.dy = null;
-      self.dt = null;
-
-      return self;
+      this.moment = new Date();
+      this.x = touch.pageX;
+      this.y = touch.pageY;
+      this.dx = null;
+      this.dy = null;
+      this.dt = null;
     }
 
     TouchPoint.prototype = {
