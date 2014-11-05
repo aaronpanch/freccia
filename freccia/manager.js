@@ -1,6 +1,8 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     define(['freccia/touch_path', 'freccia/touch_point'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('./touch_path.js'), require('./touch_point.js'));
   } else {
     root.Freccia = (root.Freccia || {});
     root.Freccia.Manager = factory(Freccia.TouchPath, Freccia.TouchPoint);

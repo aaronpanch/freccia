@@ -1,5 +1,5 @@
 var should = require('chai').should(),
-    Vector = require('../freccia/vector.js').Freccia.Vector;
+    Vector = require('../freccia/vector.js');
 
 describe('Vector', function() {
   describe('magnitude()', function() {

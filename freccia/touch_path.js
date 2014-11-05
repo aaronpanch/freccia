@@ -1,11 +1,13 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['freccia/touch_point'], factory);
+    define(['freccia/vector'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('./vector.js'));
   } else {
     root.Freccia = (root.Freccia || {});
-    root.Freccia.TouchPath = factory(Freccia.TouchPoint);
+    root.Freccia.TouchPath = factory(Freccia.Vector);
   }
-}(this, function(TouchPoint) {
+}(this, function(Vector) {
     'use strict';
 
     function TouchPath(id, touches) {
@@ -24,8 +26,8 @@
       },
 
       net: function() {
-        var start = this.start(),
-            end   = this.end();
+        var start = this.start().location,
+            end   = this.end().location;
 
         return { x: end.x - start.x, y: end.y - start.y };
       },
