@@ -2,7 +2,7 @@ var should = require('chai').should(),
     Vector = require('../freccia/vector.js');
 
 describe('Vector', function() {
-  describe('magnitude()', function() {
+  describe('#magnitude()', function() {
     it('should properly use distance formula', function() {
       var v1 = new Vector(3, 4);
       v1.magnitude().should.equal(5);
@@ -11,7 +11,7 @@ describe('Vector', function() {
     });
   });
 
-  describe('toUnit()', function() {
+  describe('#toUnit()', function() {
     it('should return a new Vector', function() {
       var vec = new Vector(10, 5);
       vec.toUnit().should.be.an.instanceOf(Vector);
@@ -29,7 +29,7 @@ describe('Vector', function() {
     });
   });
 
-  describe('add(Vector)', function() {
+  describe('#add(Vector)', function() {
     it('should add properly with another Vector', function() {
       var v1 = new Vector(7, 2.9),
           v2 = new Vector(8, 3.1);
@@ -41,7 +41,7 @@ describe('Vector', function() {
     });
   });
 
-  describe('sub(Vector)', function() {
+  describe('#sub(Vector)', function() {
     it('should subtract properly with another Vector', function() {
       var v1 = new Vector(10, 5),
           v2 = new Vector(4, 9);
@@ -53,7 +53,7 @@ describe('Vector', function() {
     });
   });
 
-  describe('scale(Number)', function() {
+  describe('#scale(Number)', function() {
     it('should return an instance of Vector', function() {
       var v1 = new Vector(7, 2);
 
