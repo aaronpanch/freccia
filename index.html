@@ -43,7 +43,7 @@
         if (path.netDistance() == 0) {
           return;
         }
-        var vel = path.velocity();
+        var vel = path.velocity().scale(0.1);
         var line = paper.line(path.start().location.x - box.left, path.start().location.y - box.top, path.start().location.x - box.left, path.start().location.y - box.top);
         line.attr({
           stroke: "#fff",

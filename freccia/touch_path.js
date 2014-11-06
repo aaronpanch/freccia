@@ -26,40 +26,28 @@
       },
 
       net: function() {
-        var start = this.start().location,
-            end   = this.end().location;
-
-        return { x: end.x - start.x, y: end.y - start.y };
+        return this.end().location.sub(this.start().location);
       },
 
       time: function() {
         var start = this.start(),
             end   = this.end();
 
-        return (end.moment - start.moment) / 100;
+        return (end.moment - start.moment) / 1000;
       },
 
       netDistance: function() {
-        var net = this.net();
-        return Math.sqrt(Math.pow(net.x, 2) + Math.pow(net.y, 2));
+        return this.net().magnitude();
       },
 
       netSpeed: function() {
         return this.netDistance() / this.time();
       },
 
-      unit: function() {
-        var net = this.net(),
-            distance = this.netDistance();
-
-        return { x: net.x / distance, y: net.y / distance };
-      },
-
       velocity: function() {
-        var unit = this.unit(),
-            speed = this.netSpeed();
+        var speed = this.netSpeed();
         
-        return { x: unit.x * speed, y: unit.y * speed };
+        return this.net().toUnit().scale(speed);
       },
 
       addPoint: function(touchPoint) {
