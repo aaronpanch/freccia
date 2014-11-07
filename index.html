@@ -24,32 +24,63 @@
     <script src="vendor/snap.svg.js"></script>
     <script src="dist/freccia.js"></script>
     <script>
-      var paper = Snap('#drawing-layer');
-      var element = document.querySelectorAll('.js-touch-demo')[0];
-      var box = element.getBoundingClientRect();
+      var Visualizer = {
+        init: function(svgElement, touchElement) {
+          this.paper = Snap(svgElement);
+          this.element = document.querySelectorAll(touchElement)[0];
+          this.recomputeOffset();
+        },
+        recomputeOffset: function() {
+          this.offset = new Freccia.Vector(this.element.offsetParent.offsetLeft, this.element.offsetParent.offsetTop);
+        },
+        createMarker: function() {
+          return this.paper.polygon(0,0,3,1.5,0,3).attr({fill: '#fff'}).marker(0,0,3,3,0.1,1.5);
+        },
+        drawPoint: function(point, attributes) {
+          attributes = (attributes || {});
+          var shifted = point.sub(this.offset);
+          return this.paper.circle(shifted.x, shifted.y, 1.5).attr(attributes);
+        },
+        drawArrow: function(start, end) {
+          var shiftedStart = start.sub(this.offset),
+              shiftedEnd = end.sub(this.offset);
+          var line = this.paper.line(shiftedStart.x, shiftedStart.y, shiftedStart.x, shiftedStart.y);
+          line.attr({
+            stroke: "#fff",
+            strokeWidth: 3,
+            markerEnd: this.createMarker()
+          }).animate({ x2: shiftedEnd.x, y2: shiftedEnd.y }, 100);
+          return line;
+        }
+      };
 
-      var f = new Freccia.Manager(element);
+      Visualizer.init('#drawing-layer', '.js-touch-demo');
+
+      window.onresize = function() {
+        Visualizer.paper.clear();
+        Visualizer.recomputeOffset();
+      };
+
+      var f = new Freccia.Manager(Visualizer.element);
       f.on('start', function(path, point) {
-        paper.clear();
-        paper.circle(point.location.x - box.left, point.location.y - box.top, 1.5).attr({ fill: '#fff' });
+        Visualizer.paper.clear();
+        Visualizer.drawPoint(point.location, { fill: '#fff' });
       });
 
       f.on('move', function(path, point) {
-        paper.circle(point.location.x - box.left, point.location.y - box.top, 1.5).attr({ fill: '#fff', opacity: '0.5' });
+        Visualizer.drawPoint(point.location, { fill: '#fff', opacity: '0.5' });
       });
 
       f.on('end', function(path, point) {
-        paper.circle(point.location.x - box.left, point.location.y - box.top, 1.5).attr({ fill: '#fff', opacity: '0.5' });
+        Visualizer.drawPoint(point.location, { fill: '#fff', opacity: '0.5' });
+
         if (path.netDistance() == 0) {
           return;
         }
+
         var vel = path.velocity().scale(0.1);
-        var line = paper.line(path.start().location.x - box.left, path.start().location.y - box.top, path.start().location.x - box.left, path.start().location.y - box.top);
-        line.attr({
-          stroke: "#fff",
-          strokeWidth: 3,
-          markerEnd: paper.polygon(0,0,3,1.5,0,3).attr({fill: '#fff'}).marker(0,0,3,3,0.1,1.5)
-        }).animate({x2: vel.x + path.start().location.x - box.left, y2: vel.y + path.start().location.y - box.top}, 100); });
+        Visualizer.drawArrow(path.start().location, path.start().location.add(vel));
+      });
       f.trace();
     </script>
   </body>
