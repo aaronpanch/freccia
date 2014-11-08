@@ -10,7 +10,7 @@
     <section>
       <h1>freccia</h1>
       <p>A simple library for tracking touch events and giving you more info about them.</p>
-      <p>Try it out! Move your finger around on the shaded region below:</p>
+      <p>Try it out! Move your finger(s) around on the shaded region below:</p>
 
       <div class="touch-demo">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="touch-demo__layer" id="drawing-layer"></svg>
@@ -18,7 +18,34 @@
       </div>
 
       <h2>What's going on?</h2>
-      <p>Explanation coming soon...</p>
+      <p>
+        The visualization above demonstrates some of the information provided by the library and how it organizes
+        and augments the default data provided by the browser events.
+      </p>
+
+      <h3>The Arrows</h3>
+      <p>
+        The animated arrow represents the average velocity from the start to the end of the finger's path in pixels/second
+        (this visualization scales it down to 1/10th of the actual velocity so it fits on screen).
+      </p>
+
+      <h3>The dots</h3>
+      <p>
+        The trail of dots plot a sampling of the path traced on screen and are recorded for every <code>touchmove</code> event fired.
+      </p>
+
+      <h2>But wait! There's more!</h2>
+      <p>
+        A lot of the cool stuff in freccia is actually invisible.
+        As a gesture is taking place, freccia tracks and organizes each of the points into easy to use data structures. It's recording position, time, and change from one point to another.
+        So, instead of manually recording points along a particular gesture, freccia provides and easy to use interface into what touches have <em>happened</em> and are currently <em>happening</em>.
+      </p>
+
+      <h2>Why would I want to use this?</h2>
+      <p>Explanation forthcoming...</p>
+
+      <h2>Wherefore 'freccia'?</h2>
+      <p>Well since this library is full of points, velocities, and directed line segments (a.k.a arrows), it is named the Italian word for arrow: freccia, which is pronounced like 'fray-cha'.</p>
     </section>
 
     <script src="vendor/snap.svg.js"></script>
