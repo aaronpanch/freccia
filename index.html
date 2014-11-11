@@ -108,7 +108,8 @@
         var vel = path.velocity().scale(0.1);
         Visualizer.drawArrow(path.start().location, path.start().location.add(vel));
       });
-      f.trace();
+			
+      f.listen();
     </script>
   </body>
 </html>

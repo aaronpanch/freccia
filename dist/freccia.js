@@ -81,9 +81,9 @@
     module.exports = factory(require('./vector.js'));
   } else {
     root.Freccia = (root.Freccia || {});
-    root.Freccia.TouchPath = factory(Freccia.Vector);
+    root.Freccia.TouchPath = factory();
   }
-}(this, function(Vector) {
+}(this, function() {
     'use strict';
 
     function TouchPath(id, touches) {
@@ -213,8 +213,8 @@
     }
 
     Manager.prototype = {
-      trace: function() {
-	var self = this;
+      listen: function() {
+        var self = this;
 				
         this.element.addEventListener('touchstart', function(event) {
           traceStart(event, self);
@@ -236,7 +236,7 @@
       _findActiveTouchPathPos: function(id) {
         for (var i=0; i < this.activeTouchPaths.length; i++) {
           if (this.activeTouchPaths[i].id === id) {
-            return i
+            return i;
           } 
         }
       },
@@ -260,6 +260,8 @@
           case 'move':
             this.moveCallbacks.push(callback);
         }
+				
+				return this;
       }
     };
 

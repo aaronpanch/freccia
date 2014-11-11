@@ -5,9 +5,9 @@
     module.exports = factory(require('./vector.js'));
   } else {
     root.Freccia = (root.Freccia || {});
-    root.Freccia.TouchPath = factory(Freccia.Vector);
+    root.Freccia.TouchPath = factory();
   }
-}(this, function(Vector) {
+}(this, function() {
     'use strict';
 
     function TouchPath(id, touches) {
