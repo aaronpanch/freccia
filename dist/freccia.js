@@ -159,6 +159,8 @@
       this.beginCallbacks = [];
       this.endCallbacks = [];
       this.moveCallbacks = [];
+      
+      this.listensForEvents = [];
     }
 
     function traceStart(event, manager) {
@@ -213,24 +215,24 @@
     }
 
     Manager.prototype = {
-      listen: function() {
+      listenAll: function() {
+        this.listenFor('touchstart', traceStart);
+        this.listenFor('touchend', traceEnd);
+        this.listenFor('touchcancel', traceEnd);
+        this.listenFor('touchmove', touchMove);
+      },
+      
+      listenFor: function(eventName, handler) {
         var self = this;
-				
-        this.element.addEventListener('touchstart', function(event) {
-          traceStart(event, self);
+        self.listensForEvents.push(eventName);
+        
+        this.element.addEventListener(eventName, function(event) {
+          handler(event, self);
         }, false);
-
-        this.element.addEventListener('touchend', function(event) {
-          traceEnd(event, self);
-        }, false);
-
-        this.element.addEventListener('touchcancel', function(event) {
-          traceEnd(event, self);
-        }, false);
-
-        this.element.addEventListener('touchmove', function(event) {
-          traceMove(event, self);
-        }, false);
+      },
+      
+      listensFor: function(eventName) {
+        return this.listensForEvents.indexOf(eventName) > -1;
       },
 
       _findActiveTouchPathPos: function(id) {
@@ -252,16 +254,26 @@
       on: function(event, callback) {
         switch(event) {
           case 'start':
+            if (! this.listensFor('touchstart')) {
+              this.listenFor('touchstart', traceStart);
+            }
             this.beginCallbacks.push(callback);
             break;
           case 'end':
+            if (! this.listensFor('touchend')) {
+              this.listenFor('touchend', traceEnd);
+              this.listenFor('touchcancel', traceEnd);
+            }
             this.endCallbacks.push(callback);
             break;
           case 'move':
+            if (! this.listensFor('touchmove')) {
+              this.listenFor('touchmove', traceMove);
+            }
             this.moveCallbacks.push(callback);
         }
 				
-				return this;
+		return this;
       }
     };
 
