@@ -1,0 +1,33 @@
+{
+  "name": "freccia",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aaronpanch/freccia",
+  "authors": [
+    "Aaron Panchal <aaron.panchal@appfolio.com>"
+  ],
+  "description": "A library for tracking touch events",
+  "main": "dist/freccia.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "touch",
+    "momentum",
+    "touchmove"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "vendor",
+    "index.html",
+    "demo.css",
+    "gulpfile.js"
+  ]
+}
